@@ -1,5 +1,4 @@
-import './App.scss';
-import logo from './logo.svg';
+
 import {
   FaSearch,
   FaUser,
@@ -9,9 +8,9 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { products } from './fakeData'
+import { products } from '../fakeData';
 
-const sizeList = [40, 41, 42, 43]
+const sizeList = [40, 41, 42, 43];
 
 function App() {
   return (
@@ -46,7 +45,7 @@ function App() {
       <div>
         <div className='flex flex-row mt-14 mb-8'>
           <div className='w-1/2'>
-            <img src={`${require("./assets/images/shoe1.jfif")}`} alt={'shoes'} className='object-cover w-full' style={{ height: 500 }} />
+            <img src={`${require("../assets/images/shoe1.jfif")}`} alt={'shoes'} className='object-cover w-full' style={{ height: 500 }} />
           </div>
           <div className='w-1/2 px-8'>
             <div className='bg-gray-800 inline-block p-2 px-6 text-white font-bold'>MEN</div>

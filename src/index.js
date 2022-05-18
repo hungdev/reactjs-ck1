@@ -4,6 +4,7 @@ import './index.css';
 import './tailwindStyles.css';
 // import './reset.scss';
 import App from './App';
+// import Demo from './Demo';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
