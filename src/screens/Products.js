@@ -8,10 +8,14 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { useParams, useLocation } from "react-router-dom";
 import { products } from '../fakeData';
 import Header from "../components/Header";
 
 function App() {
+  const params = useParams();
+  const location = useLocation();
+  console.log('location', location);
   return (
     <div>
       {/* header */}
