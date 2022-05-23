@@ -37,7 +37,7 @@ function App() {
       {/* category */}
       <div className='flex flex-row justify-around px-10 mt-8'>
         {categories.map((e, i) => (
-          <div className='border flex-1 justify-center items-center relative'
+          <div key={i} className='border flex-1 justify-center items-center relative'
             style={i === 1 ? { marginLeft: 20, marginRight: 20 } : {}}
           >
             <div className="gradient-category"></div>
