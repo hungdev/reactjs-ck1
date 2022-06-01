@@ -1,4 +1,4 @@
-
+import { useEffect, useState } from "react";
 import {
   FaSearch,
   FaUser,
@@ -7,57 +7,70 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { products } from '../fakeData';
+import Header from "../components/Header";
+import { getProductDetail, getComments, createComments } from '../services/api';
 
 const sizeList = [40, 41, 42, 43];
 
 function App() {
+  const location = useLocation();
+  const params = useParams();
+  console.log('params', params);
+  const [detail, setDetail] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [name, setName] = useState('');
+  const [review, setReview] = useState('');
+
+  useEffect(() => {
+    const getAllProducts = async () => {
+      const result = await getProductDetail(params.id);
+      const commentData = await getComments();
+      console.log('detail', commentData);
+      setDetail(result.data);
+      setComments(commentData.data);
+
+    };
+
+    getAllProducts();
+
+  }, []);
+
+  const onChangeName = (ev) => {
+    console.log(ev.target.value);
+    setName(ev.target.value);
+  };
+  const onChangeReview = (ev) => {
+    console.log(ev.target.value);
+    setReview(ev.target.value);
+  };
+
+  const addComment = async () => {
+    const result = await createComments({ name: name, content: review });
+    console.log(result.data);
+  };
+
   return (
     <div>
       {/* header */}
-      <div className='flex flex-row h-14 items-center fixed w-full top-0 z-50'>
-        <div className='flex flex-1 flex-row bg-white px-20 items-center h-full'>
-          <div className='text-gray-300 text-4xl mr-auto cursor-pointer font-bold'>Cee</div>
-          <div className='flex flex-row'>
-            <div className='page-link mr-10 cursor-pointer w-16'>Home</div>
-            <div className='page-link cursor-pointer w-20'>Product</div>
-          </div>
-        </div>
-        <div className='flex w-1/2 h-full flex-row items-center justify-between bg-white'>
-          <div className='ml-4 relative w-64'>
-            <input
-              className='border rounded-full pl-2 w-full h-7'
-              placeholder='Search here'
-            />
-            <FaSearch className='absolute top-1.5 right-2.5' />
-          </div>
-          <div className='flex flex-row'>
-            <FaUser className='text-2xl mr-10 text-gray-300' />
-            <FaHeart className='text-2xl mr-10 text-gray-300' />
-            <FaShoppingCart className='text-2xl mr-10 text-gray-300' />
-            <FiLogOut className='text-2xl mr-10 text-gray-300' />
-          </div>
-        </div>
-      </div>
+      <Header />
 
       {/* product detail */}
       <div>
         <div className='flex flex-row mt-14 mb-8'>
           <div className='w-1/2'>
-            <img src={`${require("../assets/images/shoe1.jfif")}`} alt={'shoes'} className='object-cover w-full' style={{ height: 500 }} />
+            <img src={detail.image} alt={'shoes'} className='object-cover w-full' style={{ height: 500 }} />
           </div>
           <div className='w-1/2 px-8'>
             <div className='bg-gray-800 inline-block p-2 px-6 text-white font-bold'>MEN</div>
-            <div className='text-4xl font-bold my-1'>NIKE</div>
-            <div>Nike Air Force 1 '07 LV8'</div>
+            <div className='text-4xl font-bold my-1'>NIKE voi id san pham: {detail.id}</div>
+            <div>{detail.name}</div>
             <div className='my-2'>Rating: 4⭐</div>
             <div>Price: 5000$</div>
             <div className='my-2 border-dashed border-y-2 border-gray-500 py-4'>
-              Sử dụng vải canvas NE phối hợp cùng da lộn, Vintas Mister phiên bản mới gia tăng thêm độ thoải mái khi lên chân,
-              đồng thời vẫn nguyên vẹn diện mạo cổ điển đầy cuốn hút. Lựa chọn không thể bỏ qua đối với mọi tín đồ theo đuổi
-              nét đẹp mang dấu ấn thời gian.ou know best:
-              era-echoing, '80s construction, bold details and nothin'-but-net style.
+              {detail.description}
             </div>
             <div className='flex flex-row items-center'>
               <div className='mr-2'>Available sizes:</div>
@@ -100,21 +113,33 @@ function App() {
             <div className='underline'>Write a review</div>
           </div>
 
-          <div className='w-3/4 mb-4'>
-            <div className='font-bold'>Michel jackson</div>
-            <div className='text-xs'>2022-01-03 20:40:10</div>
-            <div>Soft, comfortable, lightweight, made out of recyclable materials, great look. I like the fact they are dark grey</div>
+          <div className="wrap-write-review">
+            <div>Name</div>
+            <input className="input-comment"
+              value={name}
+              onChange={onChangeName}
+            />
+            <div>content</div>
+            <input className="input-comment"
+              value={review}
+              onChange={onChangeReview}
+            />
+            <div
+              onClick={addComment}
+              className='mt-2 w-1/2 bg-gray-800 h-11 flex justify-center items-center uppercase font-medium text-white cursor-pointer'>
+              Add comment
+            </div>
           </div>
-          <div className='w-3/4 mb-4'>
-            <div className='font-bold'>Michel jackson</div>
-            <div className='text-xs'>2022-01-03 20:40:10</div>
-            <div>Soft, comfortable, lightweight, made out of recyclable materials, great look. I like the fact they are dark grey</div>
-          </div>
-          <div className='w-3/4 mb-4'>
-            <div className='font-bold'>Michel jackson</div>
-            <div className='text-xs'>2022-01-03 20:40:10</div>
-            <div>Soft, comfortable, lightweight, made out of recyclable materials, great look. I like the fact they are dark grey</div>
-          </div>
+
+
+
+          {comments.map((content, i) => (
+            <div className='w-3/4 mb-4'>
+              <div className='font-bold'>{content.name}</div>
+              <div className='text-xs'>2022-01-03 20:40:10</div>
+              <div>Soft, comfortable, lightweight, made out of recyclable materials, great look. I like the fact they are dark grey</div>
+            </div>
+          ))}
 
         </div>
 
@@ -122,7 +147,7 @@ function App() {
           Products viewed
         </div>
         <div className='flex flex-row justify-around px-40 my-4'>
-          {products.slice(2, 6).map(e => (
+          {[].slice(2, 6).map(e => (
             <div className='mr-6'>
               <img src={e.img} alt={'shoes'} className='object-cover w-72 h-72' />
             </div>

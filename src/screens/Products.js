@@ -8,19 +8,28 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { products } from '../fakeData';
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
+import { getProducts } from '../services/api';
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   // console.log('location', location);
 
   useEffect(() => {
-    console.log('hello');
-    alert('dang call api');
+    const getAllProducts = async () => {
+      const result = await getProducts();
+      console.log('result', result.data);
+      setData(result.data);
+
+    };
+
+    getAllProducts();
+
   }, []);
 
   /**
@@ -28,6 +37,12 @@ function App() {
    * 2. Có ngoặc []: Chỉ chạy duy nhất 1 lần sau render
    * 3. Có ngoặc [data, name]: thì nó sẽ được chạy lại khi mà cái giá trị bên trong thay đổi
    */
+
+  const onMoveDetail = (item) => () => {
+    navigate(`/detail/${item.id}`);
+  };
+
+
 
 
   return (
@@ -177,13 +192,13 @@ function App() {
 
           {/* item */}
           <div className='flex flex-wrap overflow-auto mt-4 -mr-10' style={{ height: 'calc(100vh - 16rem)' }}>
-            {products.map((e, i) => (
+            {data.map((e, i) => (
               <div key={i} className='mr-12 mb-12' style={{ width: 'calc(25% - 48px)' }}>
-                <img src={e.img} alt={e.title} className='object-cover h-48 w-full' />
+                <img onClick={onMoveDetail(e)} src={e.image} alt={e.title} className='object-cover h-48 w-full' />
                 <div className='p-1'>
-                  <div className='font-bold'>{e.title}</div>
-                  <div>{e.details}</div>
-                  <div>{e.rating}⭐</div>
+                  <div onClick={onMoveDetail(e)} className='font-bold'>{e.name}</div>
+                  <div>{e.material}</div>
+                  <div>{e.star}⭐</div>
                   <div>{e.price}$</div>
                 </div>
                 <div className='bg-gray-800 h-11 flex justify-center items-center uppercase font-medium text-white cursor-pointer'>
@@ -197,6 +212,6 @@ function App() {
 
     </div >
   );
-}
+};
 
 export default App;
