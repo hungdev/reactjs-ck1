@@ -15,6 +15,7 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import { getProducts } from '../services/api';
 import { getImagePath } from '../utils';
+import Heart from '../assets/Heart';
 
 function App() {
   const location = useLocation();
@@ -52,6 +53,10 @@ function App() {
       type: 'ADD_PRODUCT',
       data: item
     });
+  };
+
+  const addToWishList = () => {
+    // add to wishlist
   };
 
 
@@ -204,7 +209,12 @@ function App() {
           <div className='flex flex-wrap overflow-auto mt-4 -mr-10' style={{ height: 'calc(100vh - 16rem)' }}>
             {data?.map((e, i) => (
               <div key={i} className='mr-12 mb-12' style={{ width: 'calc(25% - 48px)' }}>
-                <img onClick={onMoveDetail(e)} src={getImagePath(e.images?.[0])} alt={e.title} className='object-cover h-48 w-full' />
+                <div className="relative">
+                  <img src={getImagePath(e.images?.[0])} alt={e.title} className='object-cover h-48 w-full' />
+                  <div onClick={addToWishList} className="wrap-heart">
+                    <Heart />
+                  </div>
+                </div>
                 <div className='p-1'>
                   <div onClick={onMoveDetail(e)} className='font-bold'>{e.name}</div>
                   <div>{e.material}</div>
