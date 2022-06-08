@@ -31,7 +31,10 @@ export default function Header() {
         <div className='flex flex-row'>
           <FaUser className='text-2xl mr-10 text-gray-300' />
           <FaHeart className='text-2xl mr-10 text-gray-300' />
-          <Link to={'/cart'} className='page-link cursor-pointer w-20'><FaShoppingCart className='text-2xl mr-10 text-gray-300' /></Link>
+          <Link to={'/cart'} className='page-link cursor-pointer w-20 relative'>
+            <FaShoppingCart className='text-2xl mr-10 text-gray-300' />
+            <div className='item-number'>1</div>
+          </Link>
 
           <FiLogOut className='text-2xl mr-10 text-gray-300' />
         </div>
