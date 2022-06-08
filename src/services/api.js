@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://628326ed92a6a5e4621ec6ba.mockapi.io/api',
+  baseURL: 'http://shoes.hungvu.net',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ const api = axios.create({
 });
 
 export const getProducts = () => {
-  return api.get('/products');
+  return api.get('/get-products');
 };
 export const getProductDetail = (id) => {
   return api.get(`/products/${id}`);
