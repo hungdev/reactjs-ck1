@@ -12,6 +12,7 @@ import { FiLogOut } from "react-icons/fi";
 import { products } from '../fakeData';
 import Header from "../components/Header";
 import { getProductDetail, getComments, createComments } from '../services/api';
+import { getImagePath } from '../utils';
 
 const sizeList = [40, 41, 42, 43];
 
@@ -27,10 +28,10 @@ function App() {
   useEffect(() => {
     const getAllProducts = async () => {
       const result = await getProductDetail(params.id);
-      const commentData = await getComments();
-      console.log('detail', commentData);
-      setDetail(result.data);
-      setComments(commentData.data);
+      console.log('result', result);
+      // const commentData = await getComments();
+      setDetail(result.data.data);
+      // setComments(commentData.data);
 
     };
 
@@ -52,6 +53,9 @@ function App() {
     console.log(result.data);
   };
 
+  const addToCart = () => {
+    // detail
+  };
   return (
     <div>
       {/* header */}
@@ -61,11 +65,11 @@ function App() {
       <div>
         <div className='flex flex-row mt-14 mb-8'>
           <div className='w-1/2'>
-            <img src={detail.image} alt={'shoes'} className='object-cover w-full' style={{ height: 500 }} />
+            <img src={getImagePath(detail.images?.[0])} alt={'shoes'} className='object-cover w-full' style={{ height: 500 }} />
           </div>
           <div className='w-1/2 px-8'>
             <div className='bg-gray-800 inline-block p-2 px-6 text-white font-bold'>MEN</div>
-            <div className='text-4xl font-bold my-1'>NIKE voi id san pham: {detail.id}</div>
+            <div className='text-4xl font-bold my-1'>{detail.name}</div>
             <div>{detail.name}</div>
             <div className='my-2'>Rating: 4⭐</div>
             <div>Price: 5000$</div>
@@ -81,7 +85,7 @@ function App() {
               ))}
             </div>
             <div className='flex flex-row mt-4'>
-              <div className='w-1/2 bg-gray-800 h-11 flex justify-center items-center uppercase font-medium text-white cursor-pointer'>
+              <div onClick={addToCart} className='w-1/2 bg-gray-800 h-11 flex justify-center items-center uppercase font-medium text-white cursor-pointer'>
                 Add to cart
               </div>
               <div className='ml-2 flex px-4 bg-gray-200 h-11 justify-center items-center uppercase font-medium text-white cursor-pointer'>

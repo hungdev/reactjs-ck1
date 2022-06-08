@@ -13,7 +13,7 @@ export const getProducts = () => {
   return api.get('/get-products');
 };
 export const getProductDetail = (id) => {
-  return api.get(`/products/${id}`);
+  return api.get(`/product/${id}`);
 };
 export const getComments = (id) => {
   return api.get(`/comment`);

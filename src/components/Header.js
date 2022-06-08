@@ -9,8 +9,10 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
+  const cart = useSelector(store => store.productReducer.cart);
   return (
     <div className='flex flex-row h-14 items-center fixed w-full top-0 z-50'>
       <div className='flex flex-1 flex-row bg-white px-20 items-center h-full'>
@@ -33,7 +35,7 @@ export default function Header() {
           <FaHeart className='text-2xl mr-10 text-gray-300' />
           <Link to={'/cart'} className='page-link cursor-pointer w-20 relative'>
             <FaShoppingCart className='text-2xl mr-10 text-gray-300' />
-            <div className='item-number'>1</div>
+            <div className='item-number'>{cart?.length}</div>
           </Link>
 
           <FiLogOut className='text-2xl mr-10 text-gray-300' />

@@ -42,7 +42,8 @@ function App() {
    */
 
   const onMoveDetail = (item) => () => {
-    navigate(`/detail/${item.id}`);
+    navigate(`/detail/${item._id}`);
+    // console.log(item);
   };
 
 
