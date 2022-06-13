@@ -12,7 +12,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
-  const cart = useSelector(store => store.productReducer.cart);
+  const cart = useSelector(store => store.productSlice.cart);
   return (
     <div className='flex flex-row h-14 items-center fixed w-full top-0 z-50'>
       <div className='flex flex-1 flex-row bg-white px-20 items-center h-full'>

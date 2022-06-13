@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { getProducts } from '../services/api';
 import { getImagePath } from '../utils';
 import Heart from '../assets/Heart';
+import { addProduct } from '../reducers/productSlice';
 
 function App() {
   const location = useLocation();
@@ -49,10 +50,11 @@ function App() {
 
 
   const addToCart = (item) => () => {
-    dispatch({
-      type: 'ADD_PRODUCT',
-      data: item
-    });
+    // dispatch({
+    //   type: 'ADD_PRODUCT',
+    //   data: item
+    // });
+    dispatch(addProduct(item));
   };
 
   const addToWishList = () => {

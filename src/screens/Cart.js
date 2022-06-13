@@ -16,7 +16,7 @@ const sizeList = [40, 41, 42, 43];
 
 function App() {
 
-  const cartData = useSelector(store => store.productReducer.cart);
+  const cartData = useSelector(store => store.productSlice.cart);
 
   return (
     <div>
