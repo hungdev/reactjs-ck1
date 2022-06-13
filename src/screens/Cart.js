@@ -17,6 +17,7 @@ const sizeList = [40, 41, 42, 43];
 function App() {
 
   const cartData = useSelector(store => store.productSlice.cart);
+  console.log('cartData', cartData);
 
   return (
     <div>
@@ -55,7 +56,7 @@ function App() {
                       <div className='mr-2'>Quantity</div>
                       <div className='flex flex-row'>
                         <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>-</div>
-                        <div className='h-6 w-6 bg-gray-300 flex justify-center items-center'>1</div>
+                        <div className='h-6 w-6 bg-gray-300 flex justify-center items-center'>{item?.quantity}</div>
                         <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>+</div>
                       </div>
                     </div>
