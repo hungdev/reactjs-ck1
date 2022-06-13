@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initState = {
   // ke hang
   shoes: [],
-  electrics: [],
+  wishList: [],
   cart: []
 };
 
@@ -13,10 +13,13 @@ const productSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       state.cart.push(action.payload);
-    }
+    },
+    addWishList: (state, action) => {
+      state.wishList.push(action.payload);
+    },
   },
 });
 
-export const { addProduct } = productSlice.actions;
+export const { addProduct, addWishList } = productSlice.actions;
 
 export default productSlice.reducer;
