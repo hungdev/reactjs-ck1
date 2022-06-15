@@ -27,6 +27,7 @@ function App() {
 
   useEffect(() => {
     const getAllProducts = async () => {
+      // const data = await getFakeProducts(); // call with fake data
       const result = await getProducts();
       console.log('result', result);
       setData(result.data.data);
