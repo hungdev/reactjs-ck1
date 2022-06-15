@@ -29,6 +29,9 @@ const productSlice = createSlice({
     addWishList: (state, action) => {
       state.wishList.push(action.payload);
     },
+    removeItem: (state, action) => {
+      state.cart = state.cart.filter(item => item._id !== action.payload._id);
+    },
     changeQuantity: (state, action) => {
       state.cart = state.cart.map(item => { // lặp qua các item trong list cart
         if (item._id === action.payload._id) { // nếu item mà nó lặp qua = với item mà mình gửi vào
@@ -40,6 +43,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { addProduct, addWishList, changeQuantity } = productSlice.actions;
+export const { addProduct, addWishList, changeQuantity, removeItem } = productSlice.actions;
 
 export default productSlice.reducer;

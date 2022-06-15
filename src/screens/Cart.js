@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { products } from '../fakeData';
 import Header from "../components/Header";
 import { getImagePath } from '../utils';
-import { changeQuantity } from '../reducers/productSlice';
+import { changeQuantity, removeItem } from '../reducers/productSlice';
 
 const sizeList = [40, 41, 42, 43];
 
@@ -33,6 +33,10 @@ function App() {
     } else {
       dispatch(changeQuantity({ ...item, quantity: item?.quantity >= 1 ? Number(item?.quantity) - 1 : 0 }));
     }
+  };
+
+  const onRemove = (item) => () => {
+    dispatch(removeItem(item));
   };
 
   return (
@@ -84,7 +88,7 @@ function App() {
                   </div>
                   <div className='flex flex-row mt-4'>
                     <div className='mr-4 bg-gray-800 h-8 rounded px-2 flex justify-center items-center uppercase text-white cursor-pointer'>Move to wishlist</div>
-                    <div className='bg-gray-800 h-8 rounded px-2 flex justify-center items-center uppercase text-white cursor-pointer'>Remove</div>
+                    <div onClick={onRemove(item)} className='bg-gray-800 h-8 rounded px-2 flex justify-center items-center uppercase text-white cursor-pointer'>Remove</div>
                   </div>
                 </div>
               </div>
