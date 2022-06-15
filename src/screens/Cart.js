@@ -29,9 +29,9 @@ function App() {
   const onChangeQuantity = (type, item) => () => {
     console.log('type', type);
     if (type === 'increase') {
-      dispatch(changeQuantity({ ...item, quantity: item?.quantity + 1 }));
+      dispatch(changeQuantity({ ...item, quantity: Number(item?.quantity) + 1 }));
     } else {
-      dispatch(changeQuantity({ ...item, quantity: item?.quantity >= 1 ? item?.quantity - 1 : 0 }));
+      dispatch(changeQuantity({ ...item, quantity: item?.quantity >= 1 ? Number(item?.quantity) - 1 : 0 }));
     }
   };
 
