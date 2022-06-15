@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   FaSearch,
   FaUser,
@@ -11,13 +12,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { products } from '../fakeData';
 import Header from "../components/Header";
 import { getImagePath } from '../utils';
+import { changeQuantity } from '../reducers/productSlice';
 
 const sizeList = [40, 41, 42, 43];
 
 function App() {
-
-  const cartData = useSelector(store => store.productSlice.cart);
+  const dispatch = useDispatch();
+  const cartData = useSelector(store => store.productSlice.cart); // lấy cart từ store ra
   console.log('cartData', cartData);
+
+  const onChangeInput = (item) => (ev) => {
+    // gửi item đã thay đổi quantity vào reducer (quantity là ev.target.value)
+    dispatch(changeQuantity({ ...item, quantity: ev.target.value })); // item mới đã thay đổi quantity
+  };
+
+  const onChangeQuantity = (type, item) => () => {
+    console.log('type', type);
+    if (type === 'increase') {
+      dispatch(changeQuantity({ ...item, quantity: item?.quantity + 1 }));
+    } else {
+      dispatch(changeQuantity({ ...item, quantity: item?.quantity >= 1 ? item?.quantity - 1 : 0 }));
+    }
+  };
 
   return (
     <div>
@@ -55,9 +71,14 @@ function App() {
                     <div className='flex flex-row'>
                       <div className='mr-2'>Quantity</div>
                       <div className='flex flex-row'>
-                        <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>-</div>
-                        <div className='h-6 w-6 bg-gray-300 flex justify-center items-center'>{item?.quantity}</div>
-                        <div className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>+</div>
+                        <div onClick={onChangeQuantity('reduce', item)} className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>-</div>
+                        <div className='h-6 w-6 bg-gray-300 flex justify-center items-center'>
+                          <input
+                            className='input-quantity'
+                            value={item?.quantity}
+                            onChange={onChangeInput(item)} />
+                        </div>
+                        <div onClick={onChangeQuantity('increase', item)} className='h-6 w-6 bg-gray-200 flex justify-center items-center cursor-pointer'>+</div>
                       </div>
                     </div>
                   </div>
