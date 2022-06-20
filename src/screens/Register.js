@@ -22,8 +22,18 @@ export default function Login() {
         </div>
         <div className='flex w-1/2 justify-center items-center right '>
           <div className='w-4/5 p-10 border'>
-            <div className='text-center text-3xl font-bold'>Login</div>
-            <div>Email</div>
+            <div className='text-center text-3xl font-bold'>Sign Up</div>
+            <div className='flex flex-row justify-between'>
+              <div>
+                <div>First Name</div>
+                <input placeholder='type here' className='border-black border rounded pl-2 w-full h-10' />
+              </div>
+              <div>
+                <div>Last Name</div>
+                <input placeholder='type here' className='border-black border rounded pl-2 w-full h-10' />
+              </div>
+            </div>
+            <div className='mt-2'>Email</div>
             <input placeholder='type here' className='border-black border rounded pl-2 w-full h-10' />
             <div className='mt-2'>Password</div>
             <div className='relative'>
@@ -37,10 +47,7 @@ export default function Login() {
             <div
               onClick={onHandleLogin}
               className='rounded w-full bg-gray-800 h-14 flex justify-center items-center uppercase font-medium text-white cursor-pointer mt-4'>
-              Login
-            </div>
-            <div className='rounded w-full bg-gray-800 h-14 flex justify-center items-center uppercase font-medium text-white cursor-pointer mt-4'>
-              Login as guest
+              Sign up
             </div>
             <div className='flex justify-center items-center mt-2 flex-col'>
               <div className='flex'>Not a Member? <Link to={'/register'} className='ml-2 text-blue-700 cursor-pointer'>Sign Up</Link></div>
