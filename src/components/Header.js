@@ -7,12 +7,23 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
   const cart = useSelector(store => store.productSlice.cart);
+  const userInfo = useSelector(store => store.authSlice.user);
+
+  const onHandleAuth = () => {
+    if (userInfo) {
+      // xoa user
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div className='flex flex-row h-14 items-center fixed w-full top-0 z-50'>
       <div className='flex flex-1 flex-row bg-white px-20 items-center h-full'>
@@ -38,9 +49,9 @@ export default function Header() {
             <div className='item-number'>{cart?.length}</div>
           </Link>
 
-          <Link to={'/login'} className='page-link cursor-pointer w-20 relative'>
+          <div onClick={onHandleAuth} className='page-link cursor-pointer w-20 relative'>
             <FiLogOut className='text-2xl mr-10 text-gray-300' />
-          </Link>
+          </div>
 
         </div>
       </div>
