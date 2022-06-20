@@ -50,7 +50,7 @@ export default function Login() {
               Sign up
             </div>
             <div className='flex justify-center items-center mt-2 flex-col'>
-              <div className='flex'>Not a Member? <Link to={'/register'} className='ml-2 text-blue-700 cursor-pointer'>Sign Up</Link></div>
+              <div className='flex'>Already have an Account? <Link to={'/login'} className='ml-2 text-blue-700 cursor-pointer'>Login</Link></div>
               <div className='mt-2 px-8 text-center'>By continuing, you agree to accept our Privacy Policy & Terms of Service.</div>
             </div>
           </div>
