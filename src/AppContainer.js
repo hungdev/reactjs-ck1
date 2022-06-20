@@ -9,6 +9,7 @@ import Home from './screens/Home';
 import Products from './screens/Products';
 import Detail from './screens/Detail';
 import Cart from './screens/Cart';
+import Login from './screens/Login';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

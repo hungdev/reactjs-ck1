@@ -38,7 +38,10 @@ export default function Header() {
             <div className='item-number'>{cart?.length}</div>
           </Link>
 
-          <FiLogOut className='text-2xl mr-10 text-gray-300' />
+          <Link to={'/login'} className='page-link cursor-pointer w-20 relative'>
+            <FiLogOut className='text-2xl mr-10 text-gray-300' />
+          </Link>
+
         </div>
       </div>
     </div>

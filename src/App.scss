@@ -149,3 +149,39 @@
   width: 30px;
   text-align: center;
 }
+
+// auth screen
+.auth-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  .wrap-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .left {
+    background: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .9)), url("./assets/images/shoe-head.jpg");
+    background-size: cover;
+    width: 50%;
+    background-position: 25%;
+    background-size: cover;
+    height: calc(100vh - 4rem);
+  }
+
+  .right {
+    width: 50%;
+  }
+
+  .eye-input {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+}
