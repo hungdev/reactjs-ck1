@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { getGender } from '../services/api';
+import { getGender, getBrand } from '../services/api';
 
 export default function Rating() {
   const [genders, setGenders] = useState();
   const [genderSelected, setGenderSelected] = useState();
+  const [brands, setBrands] = useState();
+  const [brandSelected, setBrandSelected] = useState([]);
 
   useEffect(() => {
     const getFilterData = async () => {
-      const result = await getGender();
-      console.log('result', result);
-      setGenders(result.data.data);
+      const genderData = await getGender();
+      const brandData = await getBrand();
+      setGenders(genderData.data.data);
+      setBrands(brandData.data.data);
     };
     getFilterData();
   }, []);
+
+  const onChangeBrand = (brand) => () => {
+    if (brandSelected?.includes(brand._id)) {
+      const newBrandSelected = brandSelected.filter((item) => item !== brand._id);
+      setBrandSelected(newBrandSelected);
+    } else {
+      setBrandSelected([...brandSelected, brand?._id]);
+    }
+  };
 
   return (
     <div className='w-72 mr-10'>
@@ -29,11 +41,11 @@ export default function Rating() {
             <input
               className='mr-1 ml-4 mt-4'
               type="radio"
-              id={gender.name}
+              id={gender._id}
               name="genders"
               value={gender.name}
-              checked={gender.name === genderSelected}
-              onChange={() => setGenderSelected(gender.name)}
+              checked={gender._id === genderSelected}
+              onChange={() => setGenderSelected(gender._id)}
             />
             <label htmlFor={gender.name}>{gender.name}</label>
           </div>
@@ -61,50 +73,19 @@ export default function Rating() {
       </div>
 
       <div className='font-bold mt-2'>Brand</div>
-      <div>
-        <input
-          className='mr-1 ml-4 mt-4'
-          type="checkbox"
-          id="option1"
-          name="nike"
-        // checked={'nike'}
-        // onChange={() => {}}
-        />
-        <label htmlFor="option1">Nike</label>
-      </div>
-      <div>
-        <input
-          className='mr-1 ml-4 mt-4'
-          type="checkbox"
-          id="option2"
-          name="adidas"
-        // checked={'adidas'}
-        // onChange={() => {}}
-        />
-        <label htmlFor="option2">Adidas</label>
-      </div>
-      <div>
-        <input
-          className='mr-1 ml-4 mt-4'
-          type="checkbox"
-          id="option3"
-          name="puma"
-        // checked={'puma'}
-        // onChange={() => {}}
-        />
-        <label htmlFor="option3">Puma</label>
-      </div>
-      <div>
-        <input
-          className='mr-1 ml-4 mt-4'
-          type="checkbox"
-          id="option4"
-          name="vans"
-        // checked={'vans'}
-        // onChange={() => {}}
-        />
-        <label htmlFor="option4">Vans</label>
-      </div>
+      {brands?.map(brand => (
+        <div>
+          <input
+            className='mr-1 ml-4 mt-4'
+            type="checkbox"
+            id="option1"
+            name="nike"
+            checked={brandSelected?.includes(brand._id)}
+            onChange={onChangeBrand(brand)}
+          />
+          <label htmlFor="option1">{brand.name}</label>
+        </div>
+      ))}
     </div>
   );
 }

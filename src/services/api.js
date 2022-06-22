@@ -24,6 +24,9 @@ export const createComments = (params) => {
 export const getGender = (params) => {
   return api.get(`/get-genders`, params);
 };
+export const getBrand = (params) => {
+  return api.get(`/get-brands`, params);
+};
 
 // fake data
 const fakeProductData = [
