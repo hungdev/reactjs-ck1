@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
+import { removeUser } from "../reducers/authSlice";
 
 export default function Header() {
   let navigate = useNavigate();
@@ -18,11 +19,15 @@ export default function Header() {
   const userInfo = useSelector(store => store.authSlice.user);
 
   const onHandleAuth = () => {
-    if (userInfo) {
-      // xoa user
-    } else {
-      navigate("/login");
-    }
+    // if (userInfo) {
+    //   // xoa user
+    //   dispatch(removeUser());
+    //   navigate("/login");
+    // } else {
+    //   navigate("/login");
+    // }
+    userInfo && dispatch(removeUser());
+    navigate("/login");
   };
   return (
     <div className='flex flex-row h-14 items-center fixed w-full top-0 z-50'>
