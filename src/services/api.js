@@ -9,8 +9,8 @@ const api = axios.create({
   timeout: 30000,
 });
 
-export const getProducts = () => {
-  return api.get('/get-products');
+export const getProducts = (params) => {
+  return api.get('/get-products', { params });
 };
 export const getProductDetail = (id) => {
   return api.get(`/product/${id}`);
@@ -20,6 +20,9 @@ export const getComments = (id) => {
 };
 export const createComments = (params) => {
   return api.post(`/comment`, params);
+};
+export const getGender = (params) => {
+  return api.get(`/get-genders`, params);
 };
 
 // fake data

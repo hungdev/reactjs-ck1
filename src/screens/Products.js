@@ -17,6 +17,7 @@ import { getProducts } from '../services/api';
 import { getImagePath } from '../utils';
 import Heart from '../assets/Heart';
 import { addProduct } from '../reducers/productSlice';
+import FilterSideBar from '../components/FilterSideBar';
 
 function App() {
   const location = useLocation();
@@ -28,7 +29,9 @@ function App() {
   useEffect(() => {
     const getAllProducts = async () => {
       // const data = await getFakeProducts(); // call with fake data
-      const result = await getProducts();
+      var url = new URL(window.location.href);
+      var productName = url.searchParams.get("name");
+      const result = await getProducts({ name: productName });
       console.log('result', result);
       setData(result.data.data);
 
@@ -36,7 +39,7 @@ function App() {
 
     getAllProducts();
 
-  }, []);
+  }, [window.location.href]);
 
   /**
    * 1. khong co []: Cứ mỗi lần state, props thay đổi thì nó sẽ được gọi lại
@@ -72,119 +75,7 @@ function App() {
       <div className="head">Products</div>
       <div className='product-container flex flex-row'>
         {/* filter column */}
-        <div className='w-72 mr-10'>
-          <div className='mt-6 flex flex-row items-center justify-between'>
-            <div className='text-2xl font-bold'>Filter</div>
-            <div className='cursor-pointer mr-8'>Clear all</div>
-          </div>
-
-          <div className='font-bold mt-2'>Gender</div>
-
-          <div className=''>
-            <div>
-              <input
-                className='mr-1 ml-4 mt-4'
-                type="radio"
-                id="men"
-                name="gender"
-                value="men"
-              // checked={gender === "MEN"}
-              // onChange={() => {}}
-              />
-              <label htmlFor="men">Men</label>
-            </div>
-            <div>
-              <input
-                className='mr-1 ml-4 mt-4'
-                type="radio"
-                id="women"
-                name="gender"
-                value="women"
-              // checked={gender === "women"}
-              // onChange={() => {}}
-              />
-              <label htmlFor="women">Women</label>
-            </div>
-            <div>
-              <input
-                className='mr-1 ml-4 mt-4'
-                type="radio"
-                id="kid"
-                name="gender"
-                value="kid"
-              // checked={gender === "kid"}
-              // onChange={() => {}}
-              />
-              <label htmlFor="kid">Kid</label>
-            </div>
-          </div>
-
-          <div className='font-bold mt-2'>Rating</div>
-          <div className="flex flex-row justify-between w-11/12 mt-4">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <p key={item}>
-                {item}
-                <sup>⭐</sup>
-              </p>
-            ))}
-          </div>
-          <div className="">
-            <input
-              type="range"
-              className="w-11/12"
-              min={1}
-              max={5}
-            // value={2}
-            // onChange={(e) => { }}
-            />
-          </div>
-
-          <div className='font-bold mt-2'>Brand</div>
-          <div>
-            <input
-              className='mr-1 ml-4 mt-4'
-              type="checkbox"
-              id="option1"
-              name="nike"
-            // checked={'nike'}
-            // onChange={() => {}}
-            />
-            <label htmlFor="option1">Nike</label>
-          </div>
-          <div>
-            <input
-              className='mr-1 ml-4 mt-4'
-              type="checkbox"
-              id="option2"
-              name="adidas"
-            // checked={'adidas'}
-            // onChange={() => {}}
-            />
-            <label htmlFor="option2">Adidas</label>
-          </div>
-          <div>
-            <input
-              className='mr-1 ml-4 mt-4'
-              type="checkbox"
-              id="option3"
-              name="puma"
-            // checked={'puma'}
-            // onChange={() => {}}
-            />
-            <label htmlFor="option3">Puma</label>
-          </div>
-          <div>
-            <input
-              className='mr-1 ml-4 mt-4'
-              type="checkbox"
-              id="option4"
-              name="vans"
-            // checked={'vans'}
-            // onChange={() => {}}
-            />
-            <label htmlFor="option4">Vans</label>
-          </div>
-        </div>
+        <FilterSideBar />
 
         {/* item column */}
         <div className='flex-1'>
