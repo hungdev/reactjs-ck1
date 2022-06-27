@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Eye from '../assets/Eye';
 import EyeClose from '../assets/EyeClose';
 import { addUser } from '../reducers/authSlice';
+import { fetchLogin } from '../reducers/authSlice';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const userInfo = useSelector(store => store.authSlice.user);
+
+  console.log('userInfo', userInfo);
 
   useEffect(() => { // chuyen trang login neu da co user
     if (userInfo) {
@@ -25,7 +28,8 @@ export default function Login() {
   const onChangeViewPass = () => setIsViewPass(!isViewPass);
 
   const onHandleLogin = () => {
-    dispatch(addUser({ email, password }));
+    // dispatch(addUser({ email, password }));
+    dispatch(fetchLogin({ email, password }));
   };
 
   const onChangeEmail = (ev) => setEmail(ev.target.value);

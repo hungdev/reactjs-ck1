@@ -27,6 +27,9 @@ export const getGender = (params) => {
 export const getBrand = (params) => {
   return api.get(`/get-brands`, params);
 };
+export const login = (params) => {
+  return api.post(`/login`, params);
+};
 
 // fake data
 const fakeProductData = [
