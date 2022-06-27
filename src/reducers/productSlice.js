@@ -1,11 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getProductDetail } from '../services/api';
 
 const initState = {
   // ke hang
   shoes: [],
   wishList: [],
-  cart: []
+  cart: [],
+  productDetail: {}
 };
+
+export const fetchProductDetail = createAsyncThunk(
+  'products/fetchProductDetail',
+  async (productId, thunkAPI) => {
+    const response = await getProductDetail(productId);
+    return response.data;
+  }
+);
 
 const productSlice = createSlice({
   name: 'productSlice',
@@ -39,8 +49,23 @@ const productSlice = createSlice({
         }
         return item;
       });
-    }
+    },
   },
+
+  extraReducers: {
+    // fetch product detail
+    // [fetchProductDetail.pending]: (state, action) => {
+    //   state.loading = true;
+    // },
+    [fetchProductDetail.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.productDetail = action.payload.data; // action.payload chinh là data trả về từ api dòng 15
+    },
+    // [fetchProductDetail.rejected]: (state, action) => {
+    //   state.productDetail = {};
+    // },
+
+  }
 });
 
 export const { addProduct, addWishList, changeQuantity, removeItem } = productSlice.actions;

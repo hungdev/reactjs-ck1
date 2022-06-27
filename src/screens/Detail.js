@@ -11,33 +11,42 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { products } from '../fakeData';
 import Header from "../components/Header";
+import { useSelector, useDispatch } from "react-redux";
 import { getProductDetail, getComments, createComments } from '../services/api';
 import { getImagePath } from '../utils';
+import { fetchProductDetail } from '../reducers/productSlice';
 
 const sizeList = [40, 41, 42, 43];
 
 function App() {
   const location = useLocation();
   const params = useParams();
+  const dispatch = useDispatch();
   console.log('params', params);
-  const [detail, setDetail] = useState([]);
+  // const [detail, setDetail] = useState([]);
   const [comments, setComments] = useState([]);
   const [name, setName] = useState('');
   const [review, setReview] = useState('');
 
+  const detail = useSelector(state => state.productSlice.productDetail);
+
   useEffect(() => {
-    const getAllProducts = async () => {
-      const result = await getProductDetail(params.id);
-      console.log('result', result);
-      // const commentData = await getComments();
-      setDetail(result.data.data);
-      // setComments(commentData.data);
+    // const getAllProducts = async () => {
+    //   const result = await getProductDetail(params.id);
+    //   console.log('result', result);
+    //   // const commentData = await getComments();
+    //   setDetail(result.data.data);
+    //   // setComments(commentData.data);
 
-    };
+    // };
 
-    getAllProducts();
+    // getAllProducts();
+
+    dispatch(fetchProductDetail(params.id));
 
   }, []);
+
+  console.log('detail', detail);
 
   const onChangeName = (ev) => {
     console.log(ev.target.value);

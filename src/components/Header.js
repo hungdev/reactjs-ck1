@@ -58,7 +58,10 @@ export default function Header() {
           <FaSearch className='' onClick={onSearch} />
         </div>
         <div className='flex flex-row'>
-          <FaUser className='text-2xl mr-10 text-gray-300' />
+          <Link to={'/profile'} className='page-link cursor-pointer w-20 relative'>
+            <FaUser className='text-2xl mr-10 text-gray-300' />
+          </Link>
+
           <FaHeart className='text-2xl mr-10 text-gray-300' />
           <Link to={'/cart'} className='page-link cursor-pointer w-20 relative'>
             <FaShoppingCart className='text-2xl mr-10 text-gray-300' />
