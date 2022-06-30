@@ -21,6 +21,10 @@ function App() {
   const cartData = useSelector(store => store.productSlice.cart); // lấy cart từ store ra
   console.log('cartData', cartData);
 
+  const totalPrice = cartData.reduce((total, item) => {
+    return total + item.quantity * Number(item.price);
+  }, 0);
+
   const onChangeInput = (item) => (ev) => {
     // gửi item đã thay đổi quantity vào reducer (quantity là ev.target.value)
     dispatch(changeQuantity({ ...item, quantity: ev.target.value })); // item mới đã thay đổi quantity
@@ -56,7 +60,7 @@ function App() {
                 <div className='ml-4 w-full'>
                   <div className='flex justify-between'>
                     <div className='font-bold'>{item?.name}</div>
-                    <div className='font-bold'>8295$</div>
+                    <div className='font-bold'>{item.price}$</div>
                   </div>
                   <div className='text-xs font-bold text-gray-600'>Nike</div>
                   <div>Black/Rough Green/White/Total Orange</div>
@@ -101,10 +105,10 @@ function App() {
             <div className='text-2xl font-bold'>ORDER SUMMARY</div>
             <div className='text-2xl font-bold'>({cartData?.length} ITEMS)</div>
 
-            <div className='flex justify-between mb-4 pl-2 mt-4'>
+            {/* <div className='flex justify-between mb-4 pl-2 mt-4'>
               <div>Subtotal</div>
               <div>54876$</div>
-            </div>
+            </div> */}
             <div className='flex justify-between mb-4 pl-2'>
               <div>Discount</div>
               <div className='text-green-500'>-0$</div>
@@ -115,7 +119,7 @@ function App() {
             </div>
             <div className='flex justify-between font-bold mb-4 pl-2'>
               <div>Total Amount</div>
-              <div className=''>54876</div>
+              <div className=''>{totalPrice} $</div>
             </div>
             <div className='w-full bg-gray-800 h-14 flex justify-center items-center uppercase font-medium text-white cursor-pointer'>
               CHECKOUT

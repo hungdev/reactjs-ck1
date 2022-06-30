@@ -12,6 +12,7 @@ import Cart from './screens/Cart';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import Profile from './screens/Profile';
+import NotFound from './screens/NotFound';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
