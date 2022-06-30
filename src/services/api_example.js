@@ -1,0 +1,17 @@
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  timeout: 30000,
+});
+
+export const movies = (params) => {
+  return api.get('/movies', { params });
+};
+export const getMovieDetail = (id) => {
+  return api.get(`/movies/${id}`);
+};
